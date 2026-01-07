@@ -88,7 +88,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: const Text('Display on Next Page'),
             ),
             const SizedBox(
-              height: 14,
+              height: 20,
             ),
             ElevatedButton(
               onPressed: () {
@@ -98,6 +98,18 @@ class _WelcomePageState extends State<WelcomePage> {
                 );
               },
               child: const Text('About Us (Named Route)'),
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/display',
+                );
+              },
+              child: const Text('Display (Named Route)'),
             ),
           ],
         ),
