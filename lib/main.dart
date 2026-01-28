@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/about_page.dart';
-import 'package:flutter_application_1/display_page.dart';
-import 'package:flutter_application_1/welcome_page.dart';
+import 'package:mobile_2/about_page.dart';
+import 'package:mobile_2/datail_page.dart';
+import 'package:mobile_2/display_page.dart';
+import 'package:mobile_2/mylist_page.dart';
+import 'package:mobile_2/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,9 +32,10 @@ class MyApp extends StatelessWidget {
       // home: const WelcomePage(),
 
       routes: {
-        '/': (context) => const WelcomePage(),
-        '/about': (context) => const AboutPage(),
-        '/display': (context) => const DisplayPage(name: ''),
+        '/': (context) => WelcomePage(),
+        '/about': (context) => AboutPage(),
+        '/display': (context) => DisplayPage(name: ''),
+        '/list' : (context) => MylistPage(),
       },
       initialRoute: '/',
     

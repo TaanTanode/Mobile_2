@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/about_page.dart';
-import 'package:flutter_application_1/display_page.dart';
+import 'package:mobile_2/about_page.dart';
+import 'package:mobile_2/display_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -110,6 +110,15 @@ class _WelcomePageState extends State<WelcomePage> {
                 );
               },
               child: const Text('Display (Named Route)'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/list',
+                );
+              },
+              child: const Text('List Page'),
             ),
           ],
         ),
