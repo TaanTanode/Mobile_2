@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_2/about_page.dart';
 import 'package:mobile_2/datail_page.dart';
 import 'package:mobile_2/display_page.dart';
+import 'package:mobile_2/http_basic.dart';
+import 'package:mobile_2/my_futurebuilder_page.dart';
 import 'package:mobile_2/mylist_page.dart';
 import 'package:mobile_2/welcome_page.dart';
 
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       // home: const WelcomePage(),
 
       routes: {
-        '/': (context) => WelcomePage(),
+        '/': (context) => const HttpBasic(),
         '/about': (context) => AboutPage(),
         '/display': (context) => DisplayPage(name: ''),
         '/list' : (context) => MylistPage(),
