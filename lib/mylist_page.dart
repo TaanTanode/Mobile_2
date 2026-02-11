@@ -1,44 +1,68 @@
+// ListView
+
 import 'package:flutter/material.dart';
-import 'package:mobile_2/about_page.dart';
-import 'package:mobile_2/catalog_product.dart';
 import 'package:mobile_2/datail_page.dart';
+import 'models/product.dart';
+import 'services/http_service.dart';
 
-class MylistPage extends StatelessWidget {
-  const MylistPage({super.key});
+class MyListPage extends StatefulWidget {
+  const MyListPage({super.key});
+  
 
+  @override
+  State<MyListPage> createState() => _MyListPageState();
+}
 
-  // final List<String> products = <String>[
-  //   'Water Filter',
-  //   'Brown Long sleeve Jacket T01',
-  //   'Filter 3 steps',
-  //   'Smart Robot Car',
-  //   'Remote controller DC-01'
-  // ];
+class _MyListPageState extends State<MyListPage> {
+  
+  HttpService httpService = HttpService();
+
+  String baseUrl = 'https://itpart.net/mobile/api/products.php'; // API json
+  String baseImgUrl = 'https://itpart.net/mobile/images/'; // base Image
+
   @override
   Widget build(BuildContext context) {
+    // debugPrint("myapp: $baseUrl & $baseImgUrl");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
-        title: const Text('My List Page'),
+        title: const Text('My App'),
       ),
-      body: ListView.separated(
-        itemCount: CatalogProduct.items.length,
-        itemBuilder: (context, index) => 
-        ListTile(
-          leading: Image.network(CatalogProduct.items[index].imageUrl),
-          title: Text(CatalogProduct.items[index].title),
-          subtitle: Text(CatalogProduct.items[index].desc),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DetailPage(
-              product: CatalogProduct.items[index],
-            )))
-          ),
-          separatorBuilder: (context, int index) => const Divider(),
-      )
-    
-      
-      
+      body: Center(
+        child: FutureBuilder(
+          future: httpService.fetchData(strUrl: baseUrl),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasData) {
+              List<Product>? products = snapshot.data;
+              return ListView.separated(
+                itemCount: products!.length,
+                itemBuilder: (context, index) => ListTile(
+                  leading: Image.network(
+                    '$baseImgUrl/${products[index].imageUrl}',
+                    width: 86,
+                  ),
+                  title: Text(products[index].title,
+                      style: TextStyle(fontSize: 18)),
+                  subtitle: Text(products[index].description),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(productId: products[index]),
+                      ),
+                    );
+                  },
+                ),
+                separatorBuilder: (context, int index) => const Divider(),
+              );
+            } else {
+              return const Text('No data found.');
+            }
+          },
+        ),
+      ),
     );
   }
 }
